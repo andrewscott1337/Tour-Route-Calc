@@ -114,9 +114,16 @@ const addStopBtn = document.getElementById('add-stop-btn');
 const calculateBtn = document.getElementById('calculate-btn');
 const mpgInput = document.getElementById('mpg');
 const gasPriceInput = document.getElementById('gas-price');
+const tourDaysInput = document.getElementById('tour-days');
+const lodgingPriceInput = document.getElementById('lodging-price');
+const crewCountInput = document.getElementById('crew-count');
+const crewRateInput = document.getElementById('crew-rate');
 const totalDistanceEl = document.getElementById('total-distance');
 const totalTimeEl = document.getElementById('total-time');
 const totalCostEl = document.getElementById('total-cost');
+const lodgingCostEl = document.getElementById('lodging-cost');
+const crewCostEl = document.getElementById('crew-cost');
+const grandTotalEl = document.getElementById('grand-total');
 const legsBreakdownEl = document.getElementById('legs-breakdown');
 const errorMessageEl = document.getElementById('error-message');
 
@@ -242,6 +249,9 @@ function calculateRoute() {
     totalDistanceEl.textContent = '0 mi';
     totalTimeEl.textContent = '0 min';
     totalCostEl.textContent = '$0.00';
+    lodgingCostEl.textContent = '$0.00';
+    crewCostEl.textContent = '$0.00';
+    grandTotalEl.textContent = '$0.00';
 
     const inputs = [...stopsContainer.querySelectorAll('.stop-input')];
     const waypoints = inputs.map(input => input.value).filter(val => val.trim() !== '');
@@ -345,7 +355,19 @@ function calculateCost(totalMiles) {
     const gallonsNeeded = totalMiles / mpg;
     const totalCost = gallonsNeeded * gasPrice;
 
+    let tourDays = parseInt(tourDaysInput.value) || 0;
+    let lodgingPrice = parseFloat(lodgingPriceInput.value) || 0;
+    let crewCount = parseInt(crewCountInput.value) || 0;
+    let crewRate = parseFloat(crewRateInput.value) || 0;
+
+    let lodgingCost = tourDays * lodgingPrice;
+    let crewCost = tourDays * crewCount * crewRate;
+    let grandTotal = totalCost + lodgingCost + crewCost;
+
     totalCostEl.textContent = `$${totalCost.toFixed(2)}`;
+    lodgingCostEl.textContent = `$${lodgingCost.toFixed(2)}`;
+    crewCostEl.textContent = `$${crewCost.toFixed(2)}`;
+    grandTotalEl.textContent = `$${grandTotal.toFixed(2)}`;
 }
 
 // Helper to simplify full addresses to City, State (if available)
