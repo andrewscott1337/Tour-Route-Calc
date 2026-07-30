@@ -131,10 +131,6 @@ const downloadPdfBtn = document.getElementById('download-pdf-btn');
 // Palettes
 const palettes = [
     {
-        name: "Old photograph",
-        colors: ["#FDFBD4", "#D9D7B6", "#878672", "#545333"]
-    },
-    {
         name: "Tropical punch",
         colors: ["#FF8243", "#FFC0CB", "#FCE883", "#069494"]
     },
