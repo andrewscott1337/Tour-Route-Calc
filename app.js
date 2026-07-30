@@ -126,10 +126,14 @@ const crewCostEl = document.getElementById('crew-cost');
 const grandTotalEl = document.getElementById('grand-total');
 const legsBreakdownEl = document.getElementById('legs-breakdown');
 const errorMessageEl = document.getElementById('error-message');
+const downloadPdfBtn = document.getElementById('download-pdf-btn');
 
 // Add event listeners
 addStopBtn.addEventListener('click', addStop);
 calculateBtn.addEventListener('click', calculateRoute);
+if (downloadPdfBtn) {
+    downloadPdfBtn.addEventListener('click', generatePDF);
+}
 
 // Function to add a stop input
 function addStop() {
@@ -245,6 +249,7 @@ function getDragAfterElement(container, y) {
 // --- Routing and Calculation Logic ---
 function calculateRoute() {
     errorMessageEl.classList.add('hidden');
+    if (downloadPdfBtn) downloadPdfBtn.classList.add('hidden');
     legsBreakdownEl.innerHTML = '';
     totalDistanceEl.textContent = '0 mi';
     totalTimeEl.textContent = '0 min';
@@ -336,6 +341,76 @@ function processRouteData(route) {
 
     // Calculate cost
     calculateCost(totalMiles);
+
+    // Show PDF button
+    if (downloadPdfBtn) downloadPdfBtn.classList.remove('hidden');
+}
+
+function generatePDF() {
+    // Create a printable container
+    const printContainer = document.createElement('div');
+    printContainer.style.padding = '20px';
+    printContainer.style.fontFamily = 'Arial, sans-serif';
+    printContainer.style.color = '#000';
+
+    // Header
+    const header = document.createElement('h1');
+    header.textContent = 'Tour Routing & Cost Summary';
+    header.style.textAlign = 'center';
+    header.style.marginBottom = '20px';
+    printContainer.appendChild(header);
+
+    // Summary Card
+    const summaryHeader = document.createElement('h2');
+    summaryHeader.textContent = 'Results';
+    summaryHeader.style.borderBottom = '1px solid #000';
+    summaryHeader.style.paddingBottom = '5px';
+    summaryHeader.style.marginBottom = '10px';
+    printContainer.appendChild(summaryHeader);
+
+    const summaryCardClone = document.querySelector('.summary-card').cloneNode(true);
+    summaryCardClone.style.border = '1px solid #000';
+    summaryCardClone.style.padding = '15px';
+    summaryCardClone.style.marginBottom = '20px';
+    printContainer.appendChild(summaryCardClone);
+
+    // Leg Breakdown
+    const legHeader = document.createElement('h3');
+    legHeader.textContent = 'Leg Breakdown';
+    legHeader.style.borderBottom = '1px solid #000';
+    legHeader.style.paddingBottom = '5px';
+    legHeader.style.marginBottom = '10px';
+    printContainer.appendChild(legHeader);
+
+    const legBreakdownClone = document.getElementById('legs-breakdown').cloneNode(true);
+    legBreakdownClone.style.listStyle = 'none';
+    legBreakdownClone.style.padding = '0';
+
+    // Style the list items to ensure they look okay in PDF
+    const items = legBreakdownClone.querySelectorAll('li');
+    items.forEach(li => {
+        li.style.padding = '10px 0';
+        li.style.borderBottom = '1px dashed #ccc';
+    });
+
+    printContainer.appendChild(legBreakdownClone);
+
+    // We need to append the container to the document temporarily to render it
+    printContainer.style.position = 'absolute';
+    printContainer.style.left = '-9999px';
+    document.body.appendChild(printContainer);
+
+    const opt = {
+        margin:       0.5,
+        filename:     'tour-summary.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(printContainer).save().then(() => {
+        document.body.removeChild(printContainer);
+    });
 }
 
 function calculateCost(totalMiles) {
