@@ -6,10 +6,10 @@
 }
 
 :root {
-    --color-1: #FDFBD4;
-    --color-2: #D9D7B6;
-    --color-3: #878672;
-    --color-4: #545333;
+    --color-1: #FF8243;
+    --color-2: #FFC0CB;
+    --color-3: #FCE883;
+    --color-4: #069494;
 
     --bg-color: var(--color-1);
     --sidebar-bg: var(--color-2);
