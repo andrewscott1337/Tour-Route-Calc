@@ -1,6 +1,6 @@
 # Tour Drive & Gas Calculator
 
-A single-page web application designed to help touring bands calculate drive times, distances, and gas costs between tour dates.
+A single-page web application designed to help touring bands calculate drive times, distances, and gas costs between tour dates .
 
 ## Features
 - Dynamic itinerary builder with Google Places Autocomplete.
