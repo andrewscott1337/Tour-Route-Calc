@@ -358,8 +358,21 @@ function processRouteData(route) {
         const startAddress = formatAddress(leg.start_address);
         const endAddress = formatAddress(leg.end_address);
 
-        li.innerHTML = `<strong>Leg ${index + 1}:</strong> ${startAddress} to ${endAddress}<br>
-                        <em>${legMiles} miles, ${leg.duration.text}</em>`;
+        // Safely construct DOM elements to avoid XSS
+        const strongEl = document.createElement('strong');
+        strongEl.textContent = `Leg ${index + 1}:`;
+
+        const textNode1 = document.createTextNode(` ${startAddress} to ${endAddress}`);
+        const brEl = document.createElement('br');
+
+        const emEl = document.createElement('em');
+        emEl.textContent = `${legMiles} miles, ${leg.duration.text}`;
+
+        li.appendChild(strongEl);
+        li.appendChild(textNode1);
+        li.appendChild(brEl);
+        li.appendChild(emEl);
+
         legsBreakdownEl.appendChild(li);
     });
 
