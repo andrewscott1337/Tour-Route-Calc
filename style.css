@@ -6,28 +6,14 @@
 }
 
 :root {
-    --color-1: #FDFBD4;
-    --color-2: #D9D7B6;
-    --color-3: #878672;
-    --color-4: #545333;
-
-    --bg-color: var(--color-1);
-    --sidebar-bg: var(--color-2);
+    --bg-color: #f6d6d8;
+    --sidebar-bg: #f9f9f9;
     --text-color: #000000;
     --border-color: #000000;
-    --accent-color: var(--color-4);
-    --accent-hover: var(--color-3);
+    --accent-color: #ffffff;
+    --accent-hover: #e0e0e0;
     --error-color: #d32f2f;
-    --card-bg: var(--color-3);
-}
-
-.palette-selector {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 9999;
-    display: flex;
-    gap: 5px;
+    --card-bg: #ffffff;
 }
 
 body {
