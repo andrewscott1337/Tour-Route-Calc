@@ -128,12 +128,47 @@ const legsBreakdownEl = document.getElementById('legs-breakdown');
 const errorMessageEl = document.getElementById('error-message');
 const downloadPdfBtn = document.getElementById('download-pdf-btn');
 
+// Palettes
+const palettes = [
+    {
+        name: "Old photograph",
+        colors: ["#FDFBD4", "#D9D7B6", "#878672", "#545333"]
+    },
+    {
+        name: "Tropical punch",
+        colors: ["#FF8243", "#FFC0CB", "#FCE883", "#069494"]
+    },
+    {
+        name: "Cotton candy skies",
+        colors: ["#B298E7", "#B8E3E9", "#F5B8D5", "#F9BEDD"]
+    },
+    {
+        name: "Morning dew",
+        colors: ["#AFEEEE", "#ADEBB3", "#C4C4C4", "#D3D3D3"]
+    }
+];
+
 // Add event listeners
 addStopBtn.addEventListener('click', addStop);
 calculateBtn.addEventListener('click', calculateRoute);
 if (downloadPdfBtn) {
     downloadPdfBtn.addEventListener('click', generatePDF);
 }
+
+// Set up palette selector
+const paletteButtons = document.querySelectorAll('.palette-btn');
+paletteButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const index = e.target.dataset.palette;
+        if (palettes[index]) {
+            const colors = palettes[index].colors;
+            document.documentElement.style.setProperty('--color-1', colors[0]);
+            document.documentElement.style.setProperty('--color-2', colors[1]);
+            document.documentElement.style.setProperty('--color-3', colors[2]);
+            document.documentElement.style.setProperty('--color-4', colors[3]);
+        }
+    });
+});
 
 // Function to add a stop input
 function addStop() {

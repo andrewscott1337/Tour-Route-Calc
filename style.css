@@ -6,14 +6,19 @@
 }
 
 :root {
-    --bg-color: #f6d6d8;
-    --sidebar-bg: #f9f9f9;
+    --color-1: #FDFBD4;
+    --color-2: #D9D7B6;
+    --color-3: #878672;
+    --color-4: #545333;
+
+    --bg-color: var(--color-1);
+    --sidebar-bg: var(--color-2);
     --text-color: #000000;
     --border-color: #000000;
-    --accent-color: #ffffff;
+    --accent-color: var(--color-4);
     --accent-hover: #e0e0e0;
     --error-color: #d32f2f;
-    --card-bg: #ffffff;
+    --card-bg: var(--color-3);
 }
 
 body {
@@ -52,6 +57,33 @@ body {
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
+}
+
+/* Palette Selector */
+.palette-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.palette-btn {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--card-bg);
+    border: 2px solid var(--border-color);
+    box-shadow: 2px 2px 0 var(--border-color);
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.palette-btn:hover {
+    background-color: var(--accent-color);
 }
 
 .sidebar section {
