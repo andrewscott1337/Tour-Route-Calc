@@ -354,8 +354,21 @@ function processRouteData(route) {
         const startAddress = formatAddress(leg.start_address);
         const endAddress = formatAddress(leg.end_address);
 
-        li.innerHTML = `<strong>Leg ${index + 1}:</strong> ${startAddress} to ${endAddress}<br>
-                        <em>${legMiles} miles, ${leg.duration.text}</em>`;
+        const strong = document.createElement('strong');
+        strong.textContent = `Leg ${index + 1}:`;
+
+        const textNode = document.createTextNode(` ${startAddress} to ${endAddress}`);
+
+        const br = document.createElement('br');
+
+        const em = document.createElement('em');
+        em.textContent = `${legMiles} miles, ${leg.duration.text}`;
+
+        li.appendChild(strong);
+        li.appendChild(textNode);
+        li.appendChild(br);
+        li.appendChild(em);
+
         legsBreakdownEl.appendChild(li);
     });
 
