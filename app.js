@@ -128,6 +128,46 @@ const legsBreakdownEl = document.getElementById('legs-breakdown');
 const errorMessageEl = document.getElementById('error-message');
 const downloadPdfBtn = document.getElementById('download-pdf-btn');
 
+// Palettes logic
+const palettes = {
+    oldPhotograph: {
+        '--color-1': '#FDFBD4',
+        '--color-2': '#D9D7B6',
+        '--color-3': '#878672',
+        '--color-4': '#545333'
+    },
+    tropicalPunch: {
+        '--color-1': '#FF8243',
+        '--color-2': '#FFC0CB',
+        '--color-3': '#FCE883',
+        '--color-4': '#069494'
+    },
+    cottonCandySkies: {
+        '--color-1': '#B298E7',
+        '--color-2': '#B8E3E9',
+        '--color-3': '#F5B8D5',
+        '--color-4': '#F9BEDD'
+    },
+    morningDew: {
+        '--color-1': '#AFEEEE',
+        '--color-2': '#ADEBB3',
+        '--color-3': '#C4C4C4',
+        '--color-4': '#D3D3D3'
+    }
+};
+
+document.querySelectorAll('#palette-selector button').forEach(button => {
+    button.addEventListener('click', () => {
+        const paletteId = button.dataset.palette;
+        const selectedPalette = palettes[paletteId];
+        if (selectedPalette) {
+            for (const [key, value] of Object.entries(selectedPalette)) {
+                document.documentElement.style.setProperty(key, value);
+            }
+        }
+    });
+});
+
 // Add event listeners
 addStopBtn.addEventListener('click', addStop);
 calculateBtn.addEventListener('click', calculateRoute);
