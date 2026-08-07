@@ -5,6 +5,30 @@ let directionsRenderer;
 let stopCount = 0;
 let autocompleteInstances = [];
 
+// Load Google Maps API dynamically
+function loadGoogleMapsScript() {
+    let apiKey = 'YOUR_GOOGLE_MAPS_API_KEY';
+    if (typeof CONFIG !== 'undefined' && CONFIG.GOOGLE_MAPS_API_KEY) {
+        apiKey = CONFIG.GOOGLE_MAPS_API_KEY;
+    }
+
+    if (apiKey === 'YOUR_GOOGLE_MAPS_API_KEY') {
+        const mapContainer = document.getElementById('map');
+        mapContainer.innerHTML = '<div style="padding: 20px; text-align: center;"><h2>Google Maps API Key Required</h2><p>Please provide a valid API key in config.js to use the map features.</p></div>';
+        showError('Google Maps API Key is missing. Check config.js.');
+        return;
+    }
+
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+}
+
+// Call the function when the page loads
+window.addEventListener('DOMContentLoaded', loadGoogleMapsScript);
+
 // Initialize Google Maps
 function initMap() {
     // Default center (e.g., center of US)
